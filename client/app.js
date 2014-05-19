@@ -5,8 +5,12 @@
     'ngAnimate',
     'ngRoute',
     'ngTouch',
-    'ngCookies'
-, 'commune.main']);
+    'ngCookies',
+  'commune.join',
+  'commune.create'])
+  .config(function ($locationProvider) {
+    $locationProvider.html5Mode(true);
+  });
 }(angular));
 
 
