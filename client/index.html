@@ -25,6 +25,9 @@
           </ul>
         </div>
       </nav>
+      <soundtrack i="stream" o="emit(packet)" when="transmit" bufferSize="2048">
+      </soundtrack>
+      {{ stream }}
     </header>
     <div ng-view></div>
 
@@ -41,6 +44,7 @@
     <script src="lib/ng-Fx/dist/ng-Fx.js"></script>
     <script src="app.js"></script>
     <script src="common/directives.js"></script>
+    <script src="common/services.js"></script>
     <script src="main/main.js"></script>
     <script src="note/note.js"></script>
   </body>

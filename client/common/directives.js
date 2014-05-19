@@ -2,7 +2,11 @@
   "use strict";
 
   angular.module('commune')
-  .directive('search', function () {
+  .directive('soundtrack', function () {
+    
+    var OfflineAudioContext =
+      window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    OfflineAudioContext = OfflineAudioContext.bind(window);
     return {
 
     };
