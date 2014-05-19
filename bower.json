@@ -3,11 +3,12 @@
   "version": "",
   "dependencies": {
     "bootstrap-css-only": "*",
-    "angular": "*" ,
+    "angular": "*",
     "angular-route": "*",
     "angular-touch": "*",
     "angular-cookies": "*",
-    "ng-Fx": "*"
+    "ng-Fx": "*",
+    "socket.io-client": "~0.9.16",
+    "ng-socket": "~0.1.1"
   }
 }
-

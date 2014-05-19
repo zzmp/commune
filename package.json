@@ -4,7 +4,8 @@
   "dependencies": {
     "express": "*",
     "mongoose": "*",
-    "q": "*"
+    "q": "*",
+    "socket.io": "^0.9.16"
   },
   "devDependencies": {
     "gulp": "*",

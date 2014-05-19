@@ -9,8 +9,12 @@
 */
 
 var app   = require('./main/app.js'),
+    io    = require('./main/io.js')(app),
     port  = app.get('port'),
-    log   = 'Listening on ' + app.get('base url') + ':' + port;
+    log   = 'Listening on ' + app.get('base url') + ':' + port,
 
-app.listen(port);
+    server = app.listen(port),
+
+    io = require('./main/io.js')(server);
+
 console.log(log);
