@@ -10,8 +10,6 @@
 </head>
   <body>
     <header>
-      <soundtrack i="stream" o="emit(packet)" when="transmit" bufferSize="2048">
-      </soundtrack>
       <nav class='navbar navbar-default' role='navigation'>
         <div class='container-fluid'>
           <div class='navbar-header'>
@@ -19,7 +17,7 @@
           </div>
           <ul class="nav navbar-nav">
             <li>
-              <a href="/create">Host</a>
+              <a href="/host">Host</a>
             </li>
             <li>
               <a href="/join">Join</a>
@@ -44,7 +42,8 @@
     <script src="app.js"></script>
     <script src="common/directives.js"></script>
     <script src="common/services.js"></script>
-    <script src="join/join.js"></script>
-    <script src="create/create.js"></script>
+    <script src="modules/join/join.js"></script>
+    <script src="modules/host/host.js"></script>
+    <script src="modules/joinRoom/room.js"></script>
   </body>
 </html>

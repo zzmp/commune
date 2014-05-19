@@ -7,7 +7,7 @@
     'ngTouch',
     'ngCookies',
   'commune.join',
-  'commune.create'])
+  'commune.host'])
   .config(function ($locationProvider) {
     $locationProvider.html5Mode(true);
   });

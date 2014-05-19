@@ -1,18 +1,14 @@
 (function (angular) {
   "use strict";
-  angular.module('commune.join', ['ngRoute', 'ngSocket'])
+  angular.module('commune.join.room', ['ngRoute'])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/join', {
-        templateUrl: 'join/join.tpl.html',
-        controller: 'joinCtrl'
-      })
-      // Designate landing page
-      .otherwise({
-        redirectTo: '/join'
+      .when('/join/:room', {
+        templateUrl: 'modules/joinRoom/room.tpl.html',
+        controller: 'joinRoomCtrl'
       });
   })
-  .controller('joinCtrl', ['$scope', '$socket', 'stream',
+  .controller('joinRoomCtrl', ['$scope', '$socket', 'stream',
     function ($scope, $socket, stream) {
     // Initialization
     $scope.transmit = false;
