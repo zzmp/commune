@@ -15,6 +15,7 @@ module.exports = exports = function (app, express, routers) {
   app.use(middle.cors);
   app.use(express.static(__dirname + '/../../client'));
   app.use('/:path', express.static(__dirname + '/../../client'));
+  app.use('/:path/:room', express.static(__dirname + '/../../client'));
   app.use(middle.logError);
   app.use(middle.handleError);
 };

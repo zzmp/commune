@@ -1,6 +1,6 @@
 (function (angular) {
   "use strict";
-  angular.module('commune.join.room', ['ngRoute'])
+  angular.module('commune.join.room', ['ngRoute', 'ngSocket'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/join/:room', {
@@ -20,11 +20,13 @@
     });
 
     // Get user audio
-    stream($scope.stream);
+    stream.then(function(stream) {
+      $scope.stream = stream;
+    });
 
     // Send server audio
-    this.emit = function (packet) {
-      console.log(packet);
+    $scope.emit = function (packet) {
+      $socket.emit('audio', packet);
     };
   }]);
 }(angular));
