@@ -2,7 +2,7 @@ var socket = require('socket.io'),
     util   = require('./io.util.js');
 
 module.exports = function (server) {
-  var io = socket.listen(server);
+  var io = socket.listen(server, {log: false});
   
   io.sockets.on('connection', function (socket) {
     // Create room
