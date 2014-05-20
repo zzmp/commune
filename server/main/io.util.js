@@ -30,7 +30,6 @@ joinRoom = module.exports.joinRoom = function (socket, data) {
   var pass = data.pass;
 
   Room.findOne({room: name}, function (err, room) {
-    console.log(err, room);
     if (err || !room) socket.emit('joinRoom', false);
     else {
       socket.emit('joinRoom', (room && room.authenticate(pass)));

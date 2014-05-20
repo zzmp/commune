@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-class="{'bg-success': playing}">
   <soundtrack-in input="packet" when="playing">
   </soundtrack-in>
   <div class="btn-group btn-group-justified">
@@ -15,5 +15,5 @@
       </button>
     </div>
   </div>
-  <div>{{ queue }} questions queued</div>
+  <div class="label label-info">{{ queue }} questions queued</div>
 </div>

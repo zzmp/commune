@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-class="{'bg-success': playing, 'bg-warning': queued}">
   <soundtrack-out output="emit(packet)" when="playing">
   </soundtrack-out>
   <div class="btn-group-vertical col-xs-12">
@@ -18,5 +18,5 @@
       </button>
     </div>
   </div>
-  <div ng-show="queued">You are number {{ queue }} in the queue.
+  <div class="label label-info" ng-show="queued">You are number {{ queue }} in the queue.</div>
 </div>
