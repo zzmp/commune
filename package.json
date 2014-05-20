@@ -1,7 +1,12 @@
 {
   "name": "package",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "A handy-dandy conference tool.",
+  "scripts": {
+    "start": "node server/server.js"
+  },
   "dependencies": {
+    "bower": "^1.3.3",
     "express": "*",
     "mongoose": "*",
     "q": "*",
