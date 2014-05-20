@@ -2,7 +2,7 @@
   "use strict";
 
   angular.module('commune')
-  .directive('soundtrack', function () {
+  .directive('soundtrackOut', function () {
     
     var AudioContext =
       window.AudioContext || window.webkitAudioContext;

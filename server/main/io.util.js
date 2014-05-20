@@ -18,8 +18,9 @@ createRoom = module.exports.createRoom = function (socket, data) {
     if (err) socket.emit('createRoom', false);
     else {
       socket.emit('createRoom', true);
-      queues[name] = queues[name] || [];
       sockets[socket.id] = name;
+      rooms[name] = socket.id;
+      queues[name] = queues[name] || [];
     }
   });
 };
@@ -35,6 +36,7 @@ joinRoom = module.exports.joinRoom = function (socket, data) {
       room.set('population', room.get('population') + 1);
       room.save();
       sockets[socket.id] = name;
+      console.log(name);
     }
   });
 };
@@ -45,23 +47,26 @@ leaveRoom = module.exports.leaveRoom = function (socket) {
   Room.findOne({room: name}, function (err, room) {
     if (!err && room) {
       room.set('population', room.get('population') - 1);
+      if (rooms[name] === socket.id) room.set('population', 0);
       room.save();
       delete sockets[socket.id];
     }
   });
 };
 
-queue = module.exports.queue = function (socket) {
+queue = module.exports.queue = function (io, socket) {
   var name = sockets[socket.id];
 
   queues[name].push(socket.id);
+  io.sockets.socket(rooms[name]).emit('queue', queues[name].length);
 };
 
-dequeue = module.exports.dequeue = function (socket) {
+dequeue = module.exports.dequeue = function (io, socket) {
   var name = sockets[socket.id];
   var i = queues[name].indexOf(socket.id);
 
   if (i >= 0) queues[name].splice(i, 1);
+  io.sockets.socket(rooms[name]).emit('queue', queues[name].length);
 };
 
 play = module.exports.play = function (io, socket) {
@@ -88,11 +93,13 @@ play = module.exports.play = function (io, socket) {
     rooms[id]=socket.id;
     partner.emit('transmit', true);
   }
+
+  socket.emit('queue', queues[name].length);
 };
 
 stop = module.exports.stop = function (io, socket) {
   play(io.sockets.socket[rooms[socket.id]]);
-}
+};
 
 relay = module.exports.relay = function (socket, data) {
   socket.broadcast.to(rooms[socket.id]).emit('audio', data);

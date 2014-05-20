@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <soundtrack i="packet" o="destination" when="transmit" buffer-size="2048">
+  <soundtrack i="packet" when="playing">
   </soundtrack>
   <div class="btn-group btn-group-justified">
     <div class="btn-group" ng-hide="playing">
@@ -15,5 +15,5 @@
       </button>
     </div>
   </div>
-  <!-- TODO: queue info -->
+  <div>{{ queue }} questions queued</div>
 </div>

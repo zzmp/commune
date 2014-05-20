@@ -24,13 +24,13 @@ module.exports = function (server) {
     });
 
     // Queue audio
-    socket.on('queue', function (data) {
-      util.queue(socket, data);
+    socket.on('queue', function () {
+      util.queue(io, socket);
     });
 
     // Dequeue audio
-    socket.on('dequeue', function (data) {
-      util.dequeue(socket, data);
+    socket.on('dequeue', function () {
+      util.dequeue(io, socket);
     });
 
     // Play audio

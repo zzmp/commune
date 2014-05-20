@@ -9,24 +9,24 @@
       });
   })
   .controller('hostRoomCtrl', ['$scope', '$socket', 'stream',
+    $scope.queue = 0;
+
     function ($scope, $socket, stream) {
-    // Initialization
-    // $scope.transmit = false;
+    $socket.on('audio', function (packet) {
+      $scope.packet = packet;
+    });
 
-    // // Start/end transmission on server request
-    // $socket.on('transmit', function (data) {
-    //   $scope.transmit = data;
-    //   $scope.$broadcast('transmit');
-    // });
+    $scope.play = function () {
+      $socket.emit('play');
+      $scope.playing = true;
+    };
 
-    // // Get user audio
-    // stream.then(function(stream) {
-    //   $scope.stream = stream;
-    // });
+    $socket.on('play', function (data) {
+      if (!data) $scope.playing = false;
+    });
 
-    // // Send server audio
-    // $scope.emit = function (packet) {
-    //   $socket.emit('audio', packet);
-    // };
+    $socket.on('queue', function (data) {
+      $scope.queue = data;
+    });
   }]);
 }(angular));

@@ -1,17 +1,20 @@
 <div class="container-fluid">
-  <soundtrack i="stream" o="emit(packet)" when="transmit" buffer-size="2048">
-  </soundtrack>
-  <div class="btn-group btn-group-justified">
+  <soundtrack-out i="stream" o="emit(packet)" when="playing" buffer-size="2048">
+  </soundtrack-out>
+  <div class="btn-group-vertical col-xs-12">
     <div class="btn-group">
-      <button class="btn btn-success" ng-click="transmit=true;">
-        <i class="icon-white icon-play"></i>
+      <button class="btn btn-success" ng-hide="queued || playing" ng-click="queued=true; queue();">
         Ask a question
       </button>
     </div>
     <div class="btn-group">
-      <button class="btn btn-danger" ng-click="transmit=false;">
-        <i class="icon-white icon-stop"></i>
+      <button class="btn btn-danger" ng-hide="!queued || playing" ng-click="queued=false; dequeue();">
         Take it back
+      </button>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-warning" ng-show="playing" ng-click="queued=false; stop();">
+        I'm done!
       </button>
     </div>
   </div>
