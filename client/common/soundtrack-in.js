@@ -26,18 +26,18 @@
       link: function ($scope, el, attrs) {
         var context = new AudioContext();
         // Create AudioNode to decode packets
-        var script = context.createScriptProcessor(512, 2, 2);
+        var script = context.createScriptProcessor(512, 1, 1);
         // Create AnalyserNode for show
         var analyser = context.createAnalyser();
 
         // Decode packets
         script.addEventListener('audioprocess', function (stream) {
-          var lChannel = stream.outputBuffer.getChannelData(0);
-          var rChannel = stream.outputBuffer.getChannelData(1);
+          var channel = stream.outputBuffer.getChannelData(0);
+          var packet = $scope.input;
 
-          for (var sample = 0; sample < 512; sample++) {
-            lChannel[sample] = $scope.input.lChannel[sample];
-            rChannel[sample] = $scope.input.rChannel[sample];
+          for (var sample = 0; sample < 256; sample++) {
+            channel[sample * 2] = packet[sample];
+            //channel[sample * 2 + 1] = ( packet[sample] + packet[sample + 1] ) / 2;
           }
         });
 

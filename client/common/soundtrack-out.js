@@ -48,22 +48,22 @@
         // Set gain to mute
         gain.gain.value = 0;
 
-        // Encode audio
+        // Encode (one) audio channel
         script.addEventListener('audioprocess', function (stream) {
-          var lChannel = stream.inputBuffer.getChannelData(0);
-          var rChannel = stream.inputBuffer.getChannelData(1);
+          var channel = stream.inputBuffer.getChannelData(0);
 
           // Clone channels, see:
           //   typedarray.org/from-microphone-to-wav-with-getusermedia-and-web-audio/
-          lChannel = new Float32Array(lChannel);
-          rChannel = new Float32Array(rChannel);
+          channel = new Float32Array(channel);
+
+          var packet = new Float32Array(256);
+          for (var i = 0; i < 256; i++) {
+            packet[i] = ( channel[i * 2] + channel[i * 2 + 1] ) / 2;
+          }
 
           // Transmit packet to server:
           $scope.output({
-            packet:{
-              lChannel: lChannel,
-              rChannel: rChannel
-            }
+            packet: packet
           });
         });
 
