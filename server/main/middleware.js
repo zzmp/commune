@@ -18,6 +18,7 @@ module.exports = exports = {
       res.send(err, 500);
     }
   },
+
   cors: function (req, res, next) {
     res.header('Access-Controll-Allow-Origin', '*');
     res.header('Access-Controll-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
@@ -28,5 +29,19 @@ module.exports = exports = {
     } else {
       return next();
     }
+  },
+
+  authenticate: function (Room) { // expect mongoose
+    return function (req, res, next) {
+      if (req.body.room) {
+        Room.find({room: req.body.room}, function (err, room) {
+          if (err) next();
+          req.commune.room = room;
+          req.commune.pass =
+            req.body.pass ? room.authenticate(req.body.pass) : false;
+          next();
+        });
+      } else next();
+    };
   }
 };

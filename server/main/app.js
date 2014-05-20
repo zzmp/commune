@@ -3,11 +3,15 @@
 var express = require('express');
 var app = express();
 var routers = {};
-var NoteRouter = express.Router();
-routers.NoteRouter = NoteRouter;
+var HostRouter = express.Router();
+var JoinRouter = express.Router();
+
+routers.HostRouter = HostRouter;
+routers.JoinRouter = JoinRouter;
 
 require('./config.js')(app, express, routers);
 
-require('../note/note_routes.js')(NoteRouter);
+require('../host/host_routes.js')(HostRouter);
+require('../join/join_routes.js')(JoinRouter);
 
 module.exports = exports = app;
