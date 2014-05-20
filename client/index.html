@@ -10,17 +10,17 @@
 </head>
   <body>
     <header>
-      <nav class='navbar navbar-default' role='navigation'>
+      <nav class='navbar navbar-default' role='navigation' ng-controller="commune.nav">
         <div class='container-fluid'>
           <div class='navbar-header'>
             <a class="navbar-brand">commune</a>
           </div>
           <ul class="nav navbar-nav">
             <li>
-              <a href="/host">Host</a>
+              <a href="/host" ng-click="disconnect()">Host</a>
             </li>
             <li>
-              <a href="/join">Join</a>
+              <a href="/join" ng-click="disconnect()">Join</a>
             </li>
           </ul>
         </div>
@@ -45,5 +45,6 @@
     <script src="modules/join/join.js"></script>
     <script src="modules/host/host.js"></script>
     <script src="modules/joinRoom/room.js"></script>
+    <script src="modules/hostRoom/room.js"></script>
   </body>
 </html>

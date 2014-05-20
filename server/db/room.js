@@ -4,6 +4,7 @@ var roomSchema   = db.roomSchema;
 
 roomSchema.pre('save', function (next) {
   if (this.get('population') === 0) this.remove();
+  next();
 });
 
 roomSchema.methods.authenticate = function (pass) {

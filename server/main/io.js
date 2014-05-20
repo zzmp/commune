@@ -16,7 +16,10 @@ module.exports = function (server) {
     });
 
     // Leave room
-    socket.on('disconnect', function() {
+    socket.on('leaveRoom', function () {
+      util.leaveRoom(socket);
+    });
+    socket.on('disconnect', function () {
       util.leaveRoom(socket);
     });
 
@@ -32,12 +35,12 @@ module.exports = function (server) {
 
     // Play audio
     socket.on('play', function () {
-      util.play(socket);
+      util.play(io, socket);
     });
 
     // Skip audio
-    socket.on('skip', function () {
-      util.skip(socket);
+    socket.on('stop', function () {
+      util.stop(io, socket);
     });
 
     // Relay audio

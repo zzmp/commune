@@ -1,6 +1,6 @@
 (function (angular) {
   "use strict";
-  angular.module('commune.host', ['ngRoute'])
+  angular.module('commune.host', ['ngRoute', 'commune.host.room'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/host', {
@@ -19,6 +19,7 @@
     };
 
     $socket.on('createRoom', function (success) {
+      console.log(success);
       if (success) {
         $location.url('host/' + $scope.roomname);
       } else {

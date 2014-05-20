@@ -2,9 +2,9 @@
   <form name="room" ng-class="{'has-error': error}" ng-submit="submit()">
     <label class="control-label" ng-hide="error">Label your space:</label>
     <label class="control-label" ng-show="error">Taken. Try again:</label>
-    <input class="form-control" type="text" placeholder="Why not call it 'Cholula'?" ng-model="roomname">
+    <input class="form-control" type="text" placeholder="Why not call it 'Cholula'?" ng-required ng-model="roomname">
     <label class="control-label">Give it a password:</label>
-    <input class="form-control" type="text" placeholder="Chubby bun-cakes?" ng-model="password">
+    <input class="form-control" type="text" placeholder="Chubby bun-cakes?" ng-required ng-model="password">
     <input class="btn btn-block" type="submit" value="Create room">
   </form>
 </div>

@@ -2,8 +2,8 @@
   <form name="room" ng-class="{'has-error': error}" ng-submit="submit()">
     <label class="control-label" ng-hide="error">Enter your creds:</label>
     <label class="control-label" ng-show="error">No go. Try again:</label>
-    <input class="form-control" type="text" placeholder="Room name, brah" ng-model="roomname">
-    <input class="form-control" type="text" placeholder="Password, brah" ng-model="password">
+    <input class="form-control" type="text" placeholder="Room name, brah" ng-required ng-model="roomname">
+    <input class="form-control" type="text" placeholder="Password, brah" ng-required ng-model="password">
     <input class="btn btn-block" type="submit" value="Join room">
   </form>
 </div>
