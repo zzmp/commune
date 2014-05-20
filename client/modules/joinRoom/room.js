@@ -16,9 +16,11 @@
 
     // Queue operations
     $scope.queue = function () {
+      $scope.queued = true;
       $socket.emit('queue');
     };
     $scope.dequeue = function () {
+      $scope.queued = false;
       $socket.emit('dequeue');
     };
     // Send server audio
@@ -37,7 +39,7 @@
     });
     // Listen for queue position
     $socket.on('queue', function (data) {
-      $scope.queue = data;
+      $scope.place = data;
     });
   }]);
 }(angular));
