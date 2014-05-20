@@ -23,12 +23,17 @@
         // Create GainNode to mute feedback
         var gain = context.createGainNode();
         // Create AudioNode to encode packets
-        var script = context.createScriptProcessor(512, 2, 2);
+        var script = context.createScriptProcessor(256, 2, 2);
+        // Create AnalyserNode for show
+        var analyser = context.createAnalyser();
+
         // Start/stop audio processing
         var play = function () {
-          source.connect(script);
+          source.connect(analyser);
+          analyser.connect(script);
           script.connect(gain);
           gain.connect(context.destination);
+          drawSound($scope, el, analyser);
         };
         var stop = function () {
           gain.disconnect(context.destination);
@@ -61,6 +66,30 @@
             }
           });
         });
+
+        // Display packets
+        var drawSound = function ($scope, el, analyser) {
+          var svg = el.find('svg')[0];
+          var path = el.find('path')[0];
+
+          var bins = analyser.frequencyBinCount;
+          var times = new Uint8Array(bins);
+          analyser.getByteTimeDomainData(times);
+
+          var d = 'M';
+          for (var i = 0; i < bins; i+=50) {
+            var val = times[i];
+            var width = svg.clientWidth / bins;
+            var percent = val / 256;
+            var height = svg.clientHeight * percent;
+            if (i === 0) d += (i * width) + ',' + height;
+            else d += 'L' + (i * width) + ',' + height;
+          }
+          path.setAttribute('d', d);
+
+          if ($scope.when)
+            requestAnimationFrame(drawSound.bind(null, $scope, el, analyser));
+        };
 
         // Register watch to start/stop audio processing
         $scope.$watch('when', function (val) {

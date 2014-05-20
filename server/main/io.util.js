@@ -102,5 +102,5 @@ stop = module.exports.stop = function (io, socket) {
 };
 
 relay = module.exports.relay = function (socket, data) {
-  socket.broadcast.to(rooms[socket.id]).emit('audio', data);
+  socket.volatile.broadcast.to(rooms[socket.id]).emit('audio', data);
 };

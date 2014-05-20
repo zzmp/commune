@@ -20,7 +20,6 @@
     };
     // Listen for server response
     $socket.on('createRoom', function (success) {
-      console.log(success);
       if (success) {
         $location.url('host/' + $scope.roomname);
       } else {
