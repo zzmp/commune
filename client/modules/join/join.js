@@ -12,20 +12,22 @@
         redirectTo: '/join'
       });
   })
-  .controller('joinCtrl', ['$scope', '$http', function ($scope, $http) {
-    // Authorization
+  .controller('joinCtrl', ['$scope', '$location', '$socket',
+    function ($scope, $location, $socket) {
+    // Authentication
     $scope.submit = function () {
-      $http.post('/join', {
+      $socket.emit('joinRoom', {
         room: $scope.roomname,
         pass: $scope.password
-      })
-      .success(function () {
-        // TODO
-      })
-      .error(function () {
-        $scope.error = true;
-
       });
     };
+
+    $socket.on('joinRoom', function (success) {
+      if (success) {
+        $location.url('join/' + $scope.roomname);
+      } else {
+        $scope.error = true;
+      }
+    });
   }]);
 }(angular));

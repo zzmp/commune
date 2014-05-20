@@ -1,7 +1,6 @@
 "use strict";
 
-var Room          = require('../db/Room.js'),
-    morgan      = require('morgan'),
+var morgan      = require('morgan'),
     bodyParser  = require('body-parser'),
     middle      = require('./middleware');
 /*

@@ -8,19 +8,22 @@
         controller: 'hostCtrl'
       });
   })
-  .controller('hostCtrl', ['$scope', '$http', function ($scope, $http) {
-    // Authorization
+  .controller('hostCtrl', ['$scope', '$location', '$socket',
+    function ($scope, $location, $socket) {
+    // Creation
     $scope.submit = function () {
-      $http.post('/host', {
-        room: $scope.roomname
-      })
-      .success(function () {
-
-      })
-      .error(function () {
-        $scope.error = true;
-        
+      $socket.emit('createRoom', {
+        room: $scope.roomname,
+        pass: $scope.password
       });
     };
+
+    $socket.on('createRoom', function (success) {
+      if (success) {
+        $location.url('host/' + $scope.roomname);
+      } else {
+        $scope.error = true;
+      }
+    });
   }]);
 }(angular));
