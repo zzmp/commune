@@ -2,7 +2,7 @@
   "use strict";
 
   angular.module('commune')
-  .directive('soundtrackOut', function () {
+  .directive('soundtrackIn', function () {
     
     var AudioContext =
       window.AudioContext || window.webkitAudioContext;
@@ -10,13 +10,28 @@
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: 'common/soundtrack.tpl.html',
+      templateUrl: 'common/soundtrack-in.tpl.html',
       scope: {
         i: '=',
-        o: '&',
         when: '='
       },
       link: function ($scope, el, attrs) {
+        var context = new AudioContext();
+        var script = context.createScriptProcessor(2048, 2, 2);
+
+        script.addEventListener('audioprocess', function (stream) {
+          var lChannel = stream.outputBuffer.getChannelData(0);
+          var rChannel = stream.outputBuffer.getChannelData(1);
+
+          for (var sample = 0; sample < 2048; sample++) {
+            lChannel[sample] = $scope.i.left[sample];
+            rChannel[sample] = $scope.i.right[sample];
+          }
+        });
+
+        $scope.$watch('when', function (val) {
+          val ? script.connect(context.destination) : script.disconnect();
+        });
         // var source; // bound to i through $watch
         // var bufferSize = $scope.bufferSize|0 || 2048;
         // var context = new AudioContext();

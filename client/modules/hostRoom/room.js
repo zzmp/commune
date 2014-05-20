@@ -9,9 +9,9 @@
       });
   })
   .controller('hostRoomCtrl', ['$scope', '$socket', 'stream',
+    function ($scope, $socket, stream) {
     $scope.queue = 0;
 
-    function ($scope, $socket, stream) {
     $socket.on('audio', function (packet) {
       $scope.packet = packet;
     });

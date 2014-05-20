@@ -10,7 +10,7 @@
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: 'common/soundtrack.tpl.html',
+      templateUrl: 'common/soundtrack-out.tpl.html',
       scope: {
         i: '=',
         o: '&',

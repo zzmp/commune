@@ -6,6 +6,6 @@ module.exports.roomSchema = mongoose.Schema({
   leader: String,
   room: {type: String, unique: true},
   pass: String,
-  population: {type: Number, default: 0},
+  population: {type: Number, default: 1},
   createdAt: {type: Date, default: Date.now}
 });

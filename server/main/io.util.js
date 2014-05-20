@@ -30,13 +30,13 @@ joinRoom = module.exports.joinRoom = function (socket, data) {
   var pass = data.pass;
 
   Room.findOne({room: name}, function (err, room) {
+    console.log(err, room);
     if (err || !room) socket.emit('joinRoom', false);
     else {
       socket.emit('joinRoom', (room && room.authenticate(pass)));
       room.set('population', room.get('population') + 1);
       room.save();
       sockets[socket.id] = name;
-      console.log(name);
     }
   });
 };
@@ -86,11 +86,11 @@ play = module.exports.play = function (io, socket) {
     socket.emit('play', false);
   } else {
   // Send new socket play request
-    var partner = io.sockets.socket[id];
+    var partner = io.sockets.socket(id);
     socket.join(socket.id);
     partner.join(socket.id);
     rooms[socket.id] = id;
-    rooms[id]=socket.id;
+    rooms[id] = socket.id;
     partner.emit('transmit', true);
   }
 
@@ -98,7 +98,7 @@ play = module.exports.play = function (io, socket) {
 };
 
 stop = module.exports.stop = function (io, socket) {
-  play(io.sockets.socket[rooms[socket.id]]);
+  play(io, io.sockets.socket(rooms[socket.id]));
 };
 
 relay = module.exports.relay = function (socket, data) {
