@@ -2,4 +2,3 @@ node_modules/
 client/lib
 _DS_Store
 DS_Store
-!client/lib/msgpack-js

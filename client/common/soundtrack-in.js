@@ -35,9 +35,8 @@
           var channel = stream.outputBuffer.getChannelData(0);
           var packet = $scope.input;
 
-          for (var sample = 0; sample < 256; sample++) {
-            channel[sample * 2] = packet[sample];
-            //channel[sample * 2 + 1] = ( packet[sample] + packet[sample + 1] ) / 2;
+          for (var sample = 0; sample < 512; sample++) {
+            channel[sample] = packet[sample] / 32767;
           }
         });
 
