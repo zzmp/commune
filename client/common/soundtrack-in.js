@@ -17,7 +17,7 @@
       },
       link: function ($scope, el, attrs) {
         var context = new AudioContext();
-        var script = context.createScriptProcessor(2048, 2, 2);
+        var script = context.createScriptProcessor(512, 2, 2);
 
         script.addEventListener('audioprocess', function (stream) {
           var lChannel = stream.outputBuffer.getChannelData(0);

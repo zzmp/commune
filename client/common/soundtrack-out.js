@@ -14,15 +14,13 @@
       scope: {
         i: '=',
         o: '&',
-        when: '=',
-        bufferSize: '@'
+        when: '='
       },
       link: function ($scope, el, attrs) {
         var source; // bound to i through $watch
-        var bufferSize = $scope.bufferSize|0 || 2048;
         var context = new AudioContext();
         var gain = context.createGainNode();
-        var record = context.createScriptProcessor(bufferSize, 2, 2);
+        var record = context.createScriptProcessor(512, 2, 2);
         gain.gain.value = 0;
 
         record.addEventListener('audioprocess', function (stream) {
@@ -38,8 +36,7 @@
           $scope.o({
             packet:{
               left: lChannel,
-              right: rChannel,
-              bufferSize: bufferSize
+              right: rChannel
             }
           });
         });
