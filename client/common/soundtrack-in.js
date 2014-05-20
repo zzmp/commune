@@ -21,6 +21,7 @@
         var context = new AudioContext();
         // Create AudioNode to decode packets
         var script = context.createScriptProcessor(512, 2, 2);
+        console.log(el);
 
         // Decode packets
         script.addEventListener('audioprocess', function (stream) {

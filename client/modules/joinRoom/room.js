@@ -10,20 +10,9 @@
   })
   .controller('joinRoomCtrl', ['$scope', '$socket', 'stream',
     function ($scope, $socket, stream) {
-    // Initialization
+    // Initialize states
     $scope.queued = false;
     $scope.playing = false;
-
-    // Start/end transmission on server request
-    $socket.on('transmit', function (data) {
-      $scope.playing = data;
-      if ($scope.playing) $scope.queued = false;
-    });
-
-    // Get user audio
-    stream.then(function(stream) {
-      $scope.stream = stream;
-    });
 
     // Queue operations
     $scope.queue = function () {
@@ -32,16 +21,23 @@
     $scope.dequeue = function () {
       $socket.emit('dequeue');
     };
-
+    // Send server audio
+    $scope.emit = function (packet) {
+      $socket.emit('audio', packet);
+    };
     // Stop transmission
     $scope.stop = function () {
       $scope.playing = false;
       $socket.emit('stop');
     };
-
-    // Send server audio
-    $scope.emit = function (packet) {
-      $socket.emit('audio', packet);
-    };
+    // Listen for transmission
+    $socket.on('transmit', function (data) {
+      $scope.playing = data;
+      if ($scope.playing) $scope.queued = false;
+    });
+    // Listen for queue position
+    $socket.on('queue', function (data) {
+      $scope.queue = data;
+    });
   }]);
 }(angular));

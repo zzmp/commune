@@ -14,14 +14,14 @@
   })
   .controller('joinCtrl', ['$scope', '$location', '$socket',
     function ($scope, $location, $socket) {
-    // Authentication
+    // Join existing room
     $scope.submit = function () {
       $socket.emit('joinRoom', {
         room: $scope.roomname,
         pass: $scope.password
       });
     };
-
+    // Listen for server response
     $socket.on('joinRoom', function (success) {
       if (success) {
         $location.url('join/' + $scope.roomname);

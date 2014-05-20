@@ -1,5 +1,6 @@
 (function (angular) {
   "use strict";
+  
   angular.module('commune.host', ['ngRoute', 'commune.host.room'])
   .config(function ($routeProvider) {
     $routeProvider
@@ -10,14 +11,14 @@
   })
   .controller('hostCtrl', ['$scope', '$location', '$socket',
     function ($scope, $location, $socket) {
-    // Creation
+    // Create a room
     $scope.submit = function () {
       $socket.emit('createRoom', {
         room: $scope.roomname,
         pass: $scope.password
       });
     };
-
+    // Listen for server response
     $socket.on('createRoom', function (success) {
       console.log(success);
       if (success) {
