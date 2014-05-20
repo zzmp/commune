@@ -41,7 +41,7 @@ joinRoom = module.exports.joinRoom = function (socket, data) {
   });
 };
 
-leaveRoom = module.exports.leaveRoom = function (socket) {
+leaveRoom = module.exports.leaveRoom = function (io, socket) {
   var name = sockets[socket.id];
 
   Room.findOne({room: name}, function (err, room) {
@@ -52,12 +52,21 @@ leaveRoom = module.exports.leaveRoom = function (socket) {
       delete sockets[socket.id];
     }
   });
+
+  if (rooms[socket.id]) {
+    socket.emit('transmit', false);
+    socket.leave(rooms[socket.id]);
+    if (rooms[name] === rooms[socket.id]) {
+      play(io, io.sockets.socket(rooms[socket.id]));
+    }
+  }
 };
 
 queue = module.exports.queue = function (io, socket) {
   var name = sockets[socket.id];
 
   queues[name].push(socket.id);
+  socket.emit('queue', queues[name].length);
   io.sockets.socket(rooms[name]).emit('queue', queues[name].length);
 };
 
@@ -78,6 +87,7 @@ play = module.exports.play = function (io, socket) {
   if (old) {
     io.sockets.socket(old).emit('transmit', false);
     io.sockets.socket(old).leave(socket.id);
+    delete rooms[old];
   }
 
   // Find first valid id

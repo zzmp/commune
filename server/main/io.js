@@ -15,10 +15,10 @@ module.exports = function (server) {
     });
     // Leave room
     socket.on('leaveRoom', function () {
-      util.leaveRoom(socket);
+      util.leaveRoom(io, socket);
     });
     socket.on('disconnect', function () {
-      util.leaveRoom(socket);
+      util.leaveRoom(io, socket);
     });
     // Queue audio
     socket.on('queue', function () {
