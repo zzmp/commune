@@ -47,4 +47,5 @@ Commune works on a MEAN stack, with sockets and some native APIs:
 ---
 
 Made by Zach Pomerantz as part of [Hack Reactor](http://www.hackreactor.com/)
+
 http://github.com/zzmp/commune
