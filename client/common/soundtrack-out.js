@@ -23,7 +23,7 @@
         // Create GainNode to mute feedback
         var gain = context.createGainNode();
         // Create AudioNode to encode packets
-        var script = context.createScriptProcessor(256, 2, 2);
+        var script = context.createScriptProcessor(512, 2, 2);
         // Create AnalyserNode for show
         var analyser = context.createAnalyser();
 

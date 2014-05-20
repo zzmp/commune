@@ -26,7 +26,7 @@
       link: function ($scope, el, attrs) {
         var context = new AudioContext();
         // Create AudioNode to decode packets
-        var script = context.createScriptProcessor(256, 2, 2);
+        var script = context.createScriptProcessor(512, 2, 2);
         // Create AnalyserNode for show
         var analyser = context.createAnalyser();
 
@@ -35,7 +35,7 @@
           var lChannel = stream.outputBuffer.getChannelData(0);
           var rChannel = stream.outputBuffer.getChannelData(1);
 
-          for (var sample = 0; sample < 256; sample++) {
+          for (var sample = 0; sample < 512; sample++) {
             lChannel[sample] = $scope.input.lChannel[sample];
             rChannel[sample] = $scope.input.rChannel[sample];
           }
